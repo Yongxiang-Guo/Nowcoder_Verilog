@@ -1,10 +1,10 @@
 ####################################################
-Module_name:			odd_sel
+Module_name:			multi_sel
 
 Affiliation:			Tsinghua Univ
 Author:					Yongxiang Guo
-Description:			odd-even check
-Additional_Comments:	VL3 on nowcoder
+Description:			multiplier with select
+Additional_Comments:	VL4 on nowcoder
 ####################################################
 
 
@@ -14,9 +14,11 @@ Ports:
 # Direction: i-input, o-output, io-inout
 # Name				Width		Direction
 ####################################################
-bus					32			i
-sel					1			i
-check				1			o
+clk					1			i
+rst					1			i
+d					8			i
+input_grant			1			o
+out					11			o
 ####################################################
 
 
@@ -24,8 +26,8 @@ Signals:
 # Type: r-reg, w-wire, l-logic(only used in testbench)
 # Name				Width		Direction
 ####################################################
-odd_check			1			w
-even_check			1			w
+result_cnt			2			r
+d_reg				11			r
 ####################################################
 
 
