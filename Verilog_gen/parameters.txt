@@ -1,10 +1,10 @@
 ####################################################
-Module_name:			multi_sel
+Module_name:			data_cal
 
 Affiliation:			Tsinghua Univ
 Author:					Yongxiang Guo
-Description:			multiplier with select
-Additional_Comments:	VL4 on nowcoder
+Description:			see Verilog VL5 practice on nowcoder.com
+Additional_Comments:	VL5 on nowcoder
 ####################################################
 
 
@@ -16,9 +16,10 @@ Ports:
 ####################################################
 clk					1			i
 rst					1			i
-d					8			i
-input_grant			1			o
-out					11			o
+d					16			i
+sel					2			i
+out					5			o
+validout			1			o
 ####################################################
 
 
@@ -26,8 +27,7 @@ Signals:
 # Type: r-reg, w-wire, l-logic(only used in testbench)
 # Name				Width		Direction
 ####################################################
-result_cnt			2			r
-d_reg				11			r
+d_reg				16			r
 ####################################################
 
 

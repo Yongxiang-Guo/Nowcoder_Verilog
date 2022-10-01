@@ -268,7 +268,7 @@ def tb_sv_gen(output_file_path, verilog_info):
     
 if __name__ == '__main__':
     input_file_path = r"D:/Github/Nowcoder_Verilog/Verilog_gen/parameters.txt"
-    o_file_path = r"D:/Github/Nowcoder_Verilog/VL4/"
+    o_file_path = r"D:/Github/Nowcoder_Verilog/VL5/"
     
     if not os.path.exists(o_file_path):
         os.makedirs(o_file_path)
