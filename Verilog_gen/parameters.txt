@@ -1,6 +1,8 @@
 ####################################################
 Module_name:			data_cal
+####################################################
 
+####################################################
 Affiliation:			Tsinghua Univ
 Author:					Yongxiang Guo
 Description:			see Verilog VL5 practice on nowcoder.com
@@ -16,7 +18,7 @@ Ports:
 ####################################################
 clk					1			i
 rst					1			i
-d					16			i
+d(0:3)				16			i
 sel					2			i
 out					5			o
 validout			1			o
@@ -25,7 +27,7 @@ validout			1			o
 
 Signals:
 # Type: r-reg, w-wire, l-logic(only used in testbench)
-# Name				Width		Direction
+# Name				Width		Type
 ####################################################
 d_reg				16			r
 ####################################################
