@@ -209,6 +209,17 @@ def tb_sv_gen(output_file_path, verilog_info):
         f_o.write(o_ports[n].replace('output\twire', 'logic').strip(',') + ';\n')
     f_o.write('\n')
 
+    f_o.write('initial begin\n')
+    f_o.write('\t#200ns;\n')
+    f_o.write('\t$finish();\n')
+    f_o.write('end\n\n')
+
+    f_o.write('initial begin\n\t\n')
+    f_o.write('\tforever begin\n')
+    f_o.write('\t\t#10ns;\n')
+    f_o.write('\t\t\n\tend\n')
+    f_o.write('end\n\n')
+
     f_o.write('initial begin\n\t\nend\n\n')
     
     # Module instance
@@ -257,7 +268,7 @@ def tb_sv_gen(output_file_path, verilog_info):
     
 if __name__ == '__main__':
     input_file_path = r"D:/Github/Nowcoder_Verilog/Verilog_gen/parameters.txt"
-    o_file_path = r"D:/Github/Nowcoder_Verilog/VL3/"
+    o_file_path = r"D:/Github/Nowcoder_Verilog/VL4/"
     
     if not os.path.exists(o_file_path):
         os.makedirs(o_file_path)
