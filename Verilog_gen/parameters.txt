@@ -1,0 +1,36 @@
+####################################################
+Module_name:			odd_sel
+
+Affiliation:			Tsinghua Univ
+Author:					Yongxiang Guo
+Description:			odd-even check
+Additional_Comments:	VL3 on nowcoder
+####################################################
+
+
+Ports:
+# d(0:3) means d0 d1 d2 d3, 4 signals
+# Width x mean [x-1: 0]
+# Direction: i-input, o-output, io-inout
+# Name				Width		Direction
+####################################################
+bus					32			i
+sel					1			i
+check				1			i
+####################################################
+
+
+Signals:
+# Type: r-reg, w-wire, l-logic(only used in testbench)
+# Name				Width		Direction
+####################################################
+odd_check			1			w
+even_check			1			w
+####################################################
+
+
+# Other rules
+
+# 1. All ports will be assigned as wire type
+# 2. Output signals will stage in registers, use xxx_reg signal to diver
+#    assign block will be auto generated for output signals
