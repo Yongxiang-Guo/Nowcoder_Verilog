@@ -21,15 +21,13 @@ initial begin
 end
 
 initial begin
-	
-	forever begin
-		#10ns;
-		
-	end
-end
-
-initial begin
-	
+	S_n = 10'b0000000001;
+	#50ns;
+	S_n = 10'b1110000000;
+	#50ns;
+	S_n = 10'b1111111111;
+	#50ns;
+	S_n = 10'b1111111110;
 end
 
 key_encoder u_key_encoder (

@@ -15,16 +15,13 @@ module key_encoder (
 	output	wire				GS
 );
 
-reg		[3: 0]		L_reg;
-reg					GS_reg;
-wire	[8:0]		I_n;
 wire	[3:0]		Y_n;
 
-assign	L   =  L_reg;
-assign	GS  =  GS_reg;
+assign	GS  =  ~(&S_n);
+assign	L   =  ~Y_n;
 
 encoder_0 u_encoder_0 (
-	.I_n    ( I_n ),
+	.I_n    ( S_n[9: 1] ),
 	.Y_n    ( Y_n )
 );
 
