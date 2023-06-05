@@ -63,25 +63,26 @@ module asyn_fifo #(
   reg  [$clog2(DEPTH)-1:0] waddr_reg;
   reg  [$clog2(DEPTH)-1:0] raddr_reg;
 
-  reg wfull_reg;
-  reg rempty_reg;
+  reg  [1:0]               wfull_rclk_sync;
+  reg  [1:0]               rempty_wclk_sync;
 
   assign waddr = waddr_reg;
   assign raddr = raddr_reg;
-  assign wfull = wfull_reg;
-  assign rempty = rempty_reg;
 
-  assign wenc = winc & (~wfull);
-  assign renc = rinc & (~rempty);
+  assign wenc = winc & (~wfull_rclk_sync[1]);
+  assign renc = rinc & (~rempty_wclk_sync[1]);
 
   // Write fifo
   always @(posedge wclk or negedge wrstn) begin
     if (~wrstn) begin
-      waddr_reg <= 4'd0;
-    end
-    else begin
+      waddr_reg <= 0;
+    end else begin
       if (wenc) begin
-        waddr_reg <= waddr_reg + 4'd1;
+        if (waddr_reg == DEPTH - 1) begin
+          waddr_reg <= 0;
+        end else begin
+          waddr_reg <= waddr_reg + 1;
+        end
       end
     end
   end
@@ -89,12 +90,38 @@ module asyn_fifo #(
   // Read fifo
   always @(posedge rclk or negedge rrstn) begin
     if (~rrstn) begin
-      raddr_reg <= 4'd0;
-    end
-    else begin
+      raddr_reg <= 0;
+    end else begin
       if (renc) begin
-        raddr_reg <= raddr_reg + 4'd1;
+        if (raddr_reg == DEPTH - 1) begin
+          raddr_reg <= 0;
+        end else begin
+          raddr_reg <= raddr_reg + 1;
+        end
       end
+    end
+  end
+
+  // Full flag
+  assign wfull = (waddr_reg == raddr_reg) & (~rempty_wclk_sync[1]);
+
+  // Empty flag
+  assign rempty = (waddr_reg == raddr_reg) & (~wfull_rclk_sync[1]);
+
+  // sync
+  always @(posedge wclk or negedge wrstn) begin
+    if (~wrstn) begin
+      rempty_wclk_sync <= 2'b11;
+    end else begin
+      rempty_wclk_sync <= {rempty_wclk_sync[0], rempty};
+    end
+  end
+
+  always @(posedge rclk or negedge rrstn) begin
+    if (~rrstn) begin
+      wfull_rclk_sync <= 2'b00;
+    end else begin
+      wfull_rclk_sync <= {wfull_rclk_sync[0], wfull};
     end
   end
 
