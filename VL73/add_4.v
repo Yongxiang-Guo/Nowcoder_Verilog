@@ -3,10 +3,10 @@
 // ======================================================================
 // Affiliation  : Tsinghua Univ & NeuraMatrix
 // Author       : Yongxiang Guo
-// Create Date  : 2023-06-09 15:08:51
-// Revise Date  : 2023-06-09 15:08:51
-// File Name    : add_full.v
-// Description  : VL72 on nowcoder
+// Create Date  : 2023-06-10 14:08:50
+// Revise Date  : 2023-06-10 14:08:55
+// File Name    : add_4.v
+// Description  : VL73 on nowcoder
 // ======================================================================
 
 module add_half (
@@ -38,5 +38,27 @@ module add_full (
   add_half u2_add_half (.A(Sum_AB), .B(Ci), .S(S), .C(C1));
 
   assign Co = C_AB | C1;
+
+endmodule
+
+
+module add_4 (
+  input  wire [3:0] A,
+  input  wire [3:0] B,
+  input  wire       Ci,
+  output wire [3:0] S,
+  output wire       Co
+);
+
+  wire [4:0] C_line;
+  assign C_line[0] = Ci;
+  assign Co = C_line[4];
+
+  generate
+    genvar i;
+    for (i = 0; i < 4; i = i + 1) begin : gen_add_full
+      add_full u_add_full (.A(A[i]), .B(B[i]), .Ci(C_line[i]), .S(S[i]), .Co(C_line[i + 1]));
+    end
+  endgenerate
 
 endmodule
